@@ -17,6 +17,10 @@ namespace Core.API.Controllers
             this.coreService = coreService;
         }
 
+        /// <summary>
+        /// Get all Communications
+        /// </summary>
+        /// <returns>List of Communications with appropriate response code</returns>
         [HttpGet]
         public ActionResult<IEnumerable<Communication>> GetCommunications()
         {
@@ -24,32 +28,51 @@ namespace Core.API.Controllers
             return Ok(communications);
         }
 
+        /// <summary>
+        /// Get Communication with specified Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Target Communication with appropriate response code</returns>
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<Communication>> GetCommunicationById(int id)
         {
-            //TODO: Get record by Id
-            throw new NotImplementedException();
+            return Ok(coreService.GetCommunicationById(id));
         }
 
+        /// <summary>
+        /// Update Communication with the given object
+        /// </summary>
+        /// <param name="communication"></param>
+        /// <returns>Appropriate response code</returns>
         [HttpPut]
         public ActionResult UpdateCommunication([FromBody] Communication communication)
         {
-            //TODO: Update record
-            throw new NotImplementedException();
+            coreService.UpdateCommunication(communication);
+            return Ok();
         }
 
+        /// <summary>
+        /// Create a new Communication 
+        /// </summary>
+        /// <param name="communication"></param>
+        /// <returns>Appropriate response code</returns>
         [HttpPost]
         public ActionResult CreateCommunication([FromBody] Communication communication)
         {
-            //TODO: Create record
-            throw new NotImplementedException();
+            coreService.CreateCommunication(communication);
+            return Ok();
         }
 
+        /// <summary>
+        /// Delete Communication with the given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Appropriate response code</returns>
         [HttpDelete("{id}")]
         public ActionResult DeleteCommunication(int id)
         {
-            //TODO: Delete record
-            throw new NotImplementedException();
+            coreService.DeleteCommunication(id);
+            return Ok();
         }
     }
 }
