@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, TextField } from "@material-ui/core";
-
-const getCommunication = () => {
-  axios.get("")
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-}
-
-const sendCommunication = data => {
-  axios({
-    method: 'post',
-    url: '',
-    data
-  });
-}
+import { useParams } from "react-router";
 
 export default function CommunicationDetail() {
   const [communication, setCommunication] = useState();
 
+  const params = useParams();
+
+  const getCommunication = () => {
+
+    axios.get(`/Communications/${params.id}`)
+    .then(function (response) {
+      // handle success
+      console.log(response);
+      setCommunication(response.data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
+
+  const sendCommunication = data => {
+    axios({
+      method: 'post',
+      url: '/',
+      data
+    });
+  }
+
    useEffect(() => {
-    // TODO: fetch communication detail data
+    getCommunication();
   }, []);
 
   
