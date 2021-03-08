@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, TableRow, TableCell, TableBody, TableHead, Button, TableContainer  } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 export default function Communications() {
 const [loading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ const getCommunications = () => {
     return <div>Loading...</div>
   }
 
-  //TODO: Make individual rows clickable so you can drill down into the details
   return (
     <>
     <Button variant="contained" color="primary">
@@ -49,7 +49,7 @@ const getCommunications = () => {
             <TableRow key={row.id}>
               <TableCell>{row.from}</TableCell>
               <TableCell>{row.to}</TableCell>
-              <TableCell>{row.subject}</TableCell>
+              <TableCell><Link to={`/:${row.id}`}> {row.subject}</Link></TableCell>
             </TableRow>
           ))}
         </TableBody>
