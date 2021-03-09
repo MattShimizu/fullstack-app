@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, TableRow, TableCell, TableBody, TableHead, Button, TableContainer  } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Communications() {
 const [loading, setLoading] = useState(true);
 const [communications, setCommunications] = useState();
+
+const history = useHistory()
 
 const getCommunications = () => {
   setLoading(true);
@@ -22,6 +24,11 @@ const getCommunications = () => {
   })
 }
 
+const createCommunication = () => {
+  // Route to details page with new=true
+  history.push('/new');
+}
+
   useEffect(() => {
     getCommunications();
   }, []);
@@ -32,7 +39,7 @@ const getCommunications = () => {
 
   return (
     <>
-    <Button variant="contained" color="primary">
+    <Button variant="contained" color="primary" onClick={()=> createCommunication()}>
       Create New
     </Button>
     <TableContainer>
@@ -49,7 +56,7 @@ const getCommunications = () => {
             <TableRow key={row.id}>
               <TableCell>{row.from}</TableCell>
               <TableCell>{row.to}</TableCell>
-              <TableCell><Link to={`/:${row.id}`}> {row.subject}</Link></TableCell>
+              <TableCell><Link to={`/${row.id}`}> {row.subject}</Link></TableCell>
             </TableRow>
           ))}
         </TableBody>

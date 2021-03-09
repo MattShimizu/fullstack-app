@@ -75,7 +75,7 @@ export default function CommunicationDetail() {
     // Creating or Updating
     // Id will be overwritten on Creation
     const data = {
-      id: params.id,
+      id: isNew ? 0 : params.id,
       from: fromValue,
       to: toValue,
       subject: subjectValue,
@@ -91,7 +91,7 @@ export default function CommunicationDetail() {
     setIsNew(params.id === 'new');
 
     // There is no data to fetch id this is a new Communication
-    if(!isNew) {
+    if(params.id !== 'new') {
     axios.get(`/Communications/${params.id}`)
     .then(function (response) {
       // handle success
@@ -103,7 +103,7 @@ export default function CommunicationDetail() {
       console.log(error);
     });
   }
-  }, [params.id, params.new]);
+  }, [params.id, isNew]);
 
   
   return (
