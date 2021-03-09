@@ -40,6 +40,13 @@ export default function CommunicationDetail() {
     });
   }
 
+  const deleteCommunication = () => {
+    axios({
+      method: 'delete',
+      url: `/Communications/${params.id}`
+    });
+  }
+
    useEffect(() => {
     getCommunication();
   }, []);
@@ -85,10 +92,6 @@ export default function CommunicationDetail() {
         onChange={(event) => setMessageValue(event.target.value)}
         />
 
-      <Button variant="contained" color="secondary">
-        Delete
-      </Button>
-
       <Button variant="contained" color="primary"
         onClick={() => sendCommunication({
           id: params.id,
@@ -98,6 +101,11 @@ export default function CommunicationDetail() {
           message: messageValue
         })}>
         Send
+      </Button>
+
+      <Button variant="contained" color="secondary"
+        onClick={() => deleteCommunication()}>
+        Delete
       </Button>
   </>
   );
