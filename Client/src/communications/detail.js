@@ -34,9 +34,9 @@ export default function CommunicationDetail() {
 
   const sendCommunication = data => {
     axios({
-      method: 'post',
-      url: '/',
-      data
+      method: 'put',
+      url: '/Communications',
+      data: data
     });
   }
 
@@ -88,7 +88,15 @@ export default function CommunicationDetail() {
       <Button variant="contained" color="secondary">
         Delete
       </Button>
-      <Button variant="contained" color="primary">
+
+      <Button variant="contained" color="primary"
+        onClick={() => sendCommunication({
+          id: params.id,
+          from: fromValue,
+          to: toValue,
+          subject: subjectValue,
+          message: messageValue
+        })}>
         Send
       </Button>
   </>
