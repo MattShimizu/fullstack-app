@@ -1,0 +1,15 @@
+#Next Steps, TODO and FOllow up
+
+The first set of additions to make to this would be error handling,
+and logic outside the happy path in both the API and UI.
+
+API-side would probably catch errors and bubble those up to the controller level to send the appropriate response code.
+Things like, Id validation, entries null or not found, fields invalid or empty, all could be caught and logged appropriately.
+
+In the UI, validation could happen on the textFields, ensuring that they have values before submitting,
+and not allowing creation of a Communicaiton object with all empty fields. After updating the API to return more accurate response codes,
+those could be used to inform the user more accurately of errors occured, or simply to log more detailed information.
+
+Unit tests would be another next step, but there is not that much to test on these very lightwieght methods in the API.
+Most would simply ensure validation mentioned above and that database operations happened successfully.
+In each of the API methods, there is almost no branching or conditional logic to cover, outside of failure vs success.
