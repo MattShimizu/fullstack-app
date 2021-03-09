@@ -8,6 +8,7 @@ export default function CommunicationDetail() {
   const [toValue, setToValue] = useState("");
   const [subjectValue, setSubjectValue] = useState("");
   const [messageValue, setMessageValue] = useState("");
+  const [isNew, setIsNew] = useState();
 
   const params = useParams();
   const history = useHistory()
@@ -19,7 +20,7 @@ export default function CommunicationDetail() {
     setMessageValue(communication.message);
   }
 
-  const sendCommunication = data => {
+  const updateCommunication = data => {
     axios({
       method: 'put',
       url: '/Communications',
@@ -28,6 +29,24 @@ export default function CommunicationDetail() {
     .then(function (response) {
       // handle success
       console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
+
+  const createCommunication = data => {
+    axios({
+      method: 'post',
+      url: '/Communications',
+      data: data
+    })
+    .then(function (response) {
+      // handle success
+      console.log(response);
+      // Redirect to home
+      history.push("/");
     })
     .catch(function (error) {
       // handle error
@@ -51,8 +70,28 @@ export default function CommunicationDetail() {
       console.log(error);
     });
   }
+  const handleSend = () => {
+    // create new Communications object for
+    // Creating or Updating
+    // Id will be overwritten on Creation
+    const data = {
+      id: params.id,
+      from: fromValue,
+      to: toValue,
+      subject: subjectValue,
+      message: messageValue
+    }
+    isNew
+    ? createCommunication(data)
+    : updateCommunication(data);
+  }
 
    useEffect(() => {
+     // set whether we are creating a new Communication
+    setIsNew(params.id === 'new');
+
+    // There is no data to fetch id this is a new Communication
+    if(!isNew) {
     axios.get(`/Communications/${params.id}`)
     .then(function (response) {
       // handle success
@@ -63,7 +102,8 @@ export default function CommunicationDetail() {
       // handle error
       console.log(error);
     });
-  }, [params.id]);
+  }
+  }, [params.id, params.new]);
 
   
   return (
@@ -107,17 +147,12 @@ export default function CommunicationDetail() {
         />
 
       <Button variant="contained" color="primary"
-        onClick={() => sendCommunication({
-          id: params.id,
-          from: fromValue,
-          to: toValue,
-          subject: subjectValue,
-          message: messageValue
-        })}>
+        onClick={() => handleSend()}>
         Send
       </Button>
 
       <Button variant="contained" color="secondary"
+        disabled={isNew}
         onClick={() => deleteCommunication()}>
         Delete
       </Button>
