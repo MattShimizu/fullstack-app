@@ -44,15 +44,23 @@ namespace Core.Application
         /// <param name="communication"> Communication object to insert </param>
         public void CreateCommunication(Communication communication)
         {
-            communication.DateSent = new DateTimeOffset();
-            dbContext.Communications.Add(communication);
+            // Build new Communication object
+            var com = new Communication()
+            {
+                DateSent = new DateTimeOffset(),
+                From = communication.From,
+                To = communication.To,
+                Subject = communication.Subject,
+                Message = communication.Message
+            };
+            dbContext.Communications.Add(com);
             dbContext.SaveChanges();
         }
 
         /// <summary>
         /// Update an existing Communication with the given object
         /// </summary>
-        /// <param name="communication"> Updated Communicaiton object </param>
+        /// <param name="communication"> Updated Communication object </param>
         public void UpdateCommunication(Communication communication)
         {
             var com = dbContext.Communications.FirstOrDefault(c => c.Id == communication.Id);
