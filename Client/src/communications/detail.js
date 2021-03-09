@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, TextField } from "@material-ui/core";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 export default function CommunicationDetail() {
   const [fromValue, setFromValue] = useState("");
@@ -10,6 +10,7 @@ export default function CommunicationDetail() {
   const [messageValue, setMessageValue] = useState("");
 
   const params = useParams();
+  const history = useHistory()
 
   const setCommunication = (communication) => {
     setFromValue(communication.from);
@@ -18,8 +19,40 @@ export default function CommunicationDetail() {
     setMessageValue(communication.message);
   }
 
-  const getCommunication = () => {
+  const sendCommunication = data => {
+    axios({
+      method: 'put',
+      url: '/Communications',
+      data: data
+    })
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
 
+  const deleteCommunication = () => {
+    axios({
+      method: 'delete',
+      url: `/Communications/${params.id}`
+    })
+    .then(function (response) {
+      // handle success
+      console.log(response);
+      // Redirect to home
+      history.push("/");
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
+
+   useEffect(() => {
     axios.get(`/Communications/${params.id}`)
     .then(function (response) {
       // handle success
@@ -29,32 +62,13 @@ export default function CommunicationDetail() {
     .catch(function (error) {
       // handle error
       console.log(error);
-    })
-  }
-
-  const sendCommunication = data => {
-    axios({
-      method: 'put',
-      url: '/Communications',
-      data: data
     });
-  }
-
-  const deleteCommunication = () => {
-    axios({
-      method: 'delete',
-      url: `/Communications/${params.id}`
-    });
-  }
-
-   useEffect(() => {
-    getCommunication();
-  }, []);
+  }, [params.id]);
 
   
-    // TODO: Show From, To, Subject, and Message fields. Allow for Create, Update, and Delete
   return (
     <>
+    <p></p>
       <TextField
         id="from"
         label="From"
