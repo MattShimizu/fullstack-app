@@ -52,7 +52,35 @@ export default function CommunicationDetail() {
         id="from"
         label="From"
         variant="outlined"
+        required={true}
+        value={fromValue}
+        onChange={() => setFromValue()}
       />
+      <TextField
+        id="to"
+        label="To"
+        variant="outlined"
+        required={true}
+        value={toValue}
+        onChange={() => setToValue()}
+      />
+      <TextField
+        id="subject"
+        label="Subject"
+        variant="outlined"
+        required={true}
+        value={subjectValue}
+        onChange={() => setSubjectValue()}
+      />
+        <TextField
+        id="message"
+        label="Message"
+        variant="outlined"
+        required={true}
+        value={messageValue}
+        onChange={() => setMessageValue()}
+        />
+
       <Button variant="contained" color="secondary">
         Delete
       </Button>
