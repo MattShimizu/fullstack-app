@@ -4,10 +4,10 @@ import { Button, TextField } from "@material-ui/core";
 import { useParams } from "react-router";
 
 export default function CommunicationDetail() {
-  const [fromValue, setFromValue] = useState();
-  const [toValue, setToValue] = useState();
-  const [subjectValue, setSubjectValue] = useState();
-  const [messageValue, setMessageValue] = useState();
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
+  const [subjectValue, setSubjectValue] = useState("");
+  const [messageValue, setMessageValue] = useState("");
 
   const params = useParams();
 
@@ -55,7 +55,7 @@ export default function CommunicationDetail() {
         required={true}
         InputLabelProps={{ shrink: true }}
         value={fromValue}
-        onChange={() => setFromValue()}
+        onChange={(event) => setFromValue(event.target.value)}
       />
       <TextField
         id="to"
@@ -64,7 +64,7 @@ export default function CommunicationDetail() {
         required={true}
         InputLabelProps={{ shrink: true }}
         value={toValue}
-        onChange={() => setToValue()}
+        onChange={(event) => setToValue(event.target.value)}
       />
       <TextField
         id="subject"
@@ -73,7 +73,7 @@ export default function CommunicationDetail() {
         required={true}
         InputLabelProps={{ shrink: true }}
         value={subjectValue}
-        onChange={() => setSubjectValue()}
+        onChange={(event) => setSubjectValue(event.target.value)}
       />
         <TextField
         id="message"
@@ -82,7 +82,7 @@ export default function CommunicationDetail() {
         required={true}
         InputLabelProps={{ shrink: true }}
         value={messageValue}
-        onChange={() => setMessageValue()}
+        onChange={(event) => setMessageValue(event.target.value)}
         />
 
       <Button variant="contained" color="secondary">
