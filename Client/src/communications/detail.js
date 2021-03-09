@@ -4,9 +4,19 @@ import { Button, TextField } from "@material-ui/core";
 import { useParams } from "react-router";
 
 export default function CommunicationDetail() {
-  const [communication, setCommunication] = useState();
+  const [fromValue, setFromValue] = useState();
+  const [toValue, setToValue] = useState();
+  const [subjectValue, setSubjectValue] = useState();
+  const [messageValue, setMessageValue] = useState();
 
   const params = useParams();
+
+  const setCommunication = (communication) => {
+    setFromValue(communication.from);
+    setToValue(communication.to);
+    setSubjectValue(communication.subject);
+    setMessageValue(communication.message);
+  }
 
   const getCommunication = () => {
 
