@@ -53,6 +53,7 @@ export default function CommunicationDetail() {
         label="From"
         variant="outlined"
         required={true}
+        InputLabelProps={{ shrink: true }}
         value={fromValue}
         onChange={() => setFromValue()}
       />
@@ -61,6 +62,7 @@ export default function CommunicationDetail() {
         label="To"
         variant="outlined"
         required={true}
+        InputLabelProps={{ shrink: true }}
         value={toValue}
         onChange={() => setToValue()}
       />
@@ -69,6 +71,7 @@ export default function CommunicationDetail() {
         label="Subject"
         variant="outlined"
         required={true}
+        InputLabelProps={{ shrink: true }}
         value={subjectValue}
         onChange={() => setSubjectValue()}
       />
@@ -77,6 +80,7 @@ export default function CommunicationDetail() {
         label="Message"
         variant="outlined"
         required={true}
+        InputLabelProps={{ shrink: true }}
         value={messageValue}
         onChange={() => setMessageValue()}
         />
